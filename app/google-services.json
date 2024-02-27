@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "316106785626",
+    "project_id": "seekpot-92232",
+    "storage_bucket": "seekpot-92232.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316106785626:android:1e8b4a2bfc5cbaec19a963",
+        "android_client_info": {
+          "package_name": "com.gimble.seekpot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnVKvYmgTryJjPVJg2_f-Rjf-aKYfaVGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

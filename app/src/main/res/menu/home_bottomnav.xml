@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeNav"
+        android:title="  "
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/pokeNav"
+        android:title="   "
+        android:icon="@drawable/luggage"/>
+    <item
+        android:id="@+id/accNav"
+        android:title="   "
+        android:icon="@drawable/user"/>
+</menu>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">seekpot</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
+    <string name="sign_in">Sign In</string>
+    <string name="don_t_have_an_account">don\'t have an account ?</string>
+    <string name="alreadyhasit">Already have an account ?</string>
+    <string name="pokemon">pokemon</string>
+    <string name="home">home</string>
+    <string name="stuff">stuff</string>
+</resources>
