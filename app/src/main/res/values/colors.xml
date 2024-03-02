@@ -5,4 +5,6 @@
     FFDAA0<color name="liteorangy">#FFE7B5</color>
     <color name="orangy">#FFA500</color>
     <color name="greyy">#D3D3D3</color>
+    <color name="theGreySecondary">#999CA0</color>
+    <color name="theGrey">#f5f5f5</color>
 </resources>

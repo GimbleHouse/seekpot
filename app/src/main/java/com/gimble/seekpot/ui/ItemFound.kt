@@ -18,10 +18,15 @@ import com.gimble.seekpot.databinding.ActivityItemFoundBinding
 import com.gimble.seekpot.feature.enquiry.domain.model.FoundItemData
 import com.gimble.seekpot.feature.enquiry.presentation.ProgShow
 import com.google.android.material.internal.ContextUtils.getActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
+import java.util.TimeZone
 import java.util.UUID
 
 
@@ -47,10 +52,14 @@ class ItemFound : AppCompatActivity() {
             val ph = binding.phone.text.toString()
             val loc = binding.location.text.toString()
             val type ="misc"
+            val timing = getCurrentLocalTime()
+
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val currentUserId = currentUser?.uid
 
 
             if(name!=null && desc!=null && image!=null && type!= null){
-                uploadtodatabase(name,desc,image,ph,loc,type)
+                uploadtodatabase(name,desc,image,ph,loc,type,timing,currentUserId!!)
             }
             else{
                 Toast.makeText(this,"Fill in all info",Toast.LENGTH_SHORT).show()
@@ -79,7 +88,7 @@ class ItemFound : AppCompatActivity() {
 
 
     //database stuff
-    private fun uploadtodatabase(name: String, desc: String, image: Bitmap?, ph :String,loc:String, typer: String) {
+    private fun uploadtodatabase(name: String, desc: String, image: Bitmap?, ph :String,loc:String, typer: String,time : String,user : String) {
         //show progress
         val sendingDialog = ProgShow()
         sendingDialog.show(supportFragmentManager, "sendingDialog")
@@ -87,7 +96,7 @@ class ItemFound : AppCompatActivity() {
         uploadimage(image) { imageUrl ->
             firebaseRef = FirebaseDatabase.getInstance().getReference("founditems")
             val id = firebaseRef.push().key!!
-            val filee = FoundItemData(id, name, desc, imageUrl,ph,loc, typer)
+            val filee = FoundItemData(id,user, name, desc, imageUrl,ph,loc, typer,time,"F")
 
             firebaseRef.child(id).setValue(filee).addOnCompleteListener {
                 sendingDialog.dismiss()
@@ -128,4 +137,31 @@ class ItemFound : AppCompatActivity() {
             }
         }
     }
+
+    fun getCurrentLocalTime(): String {
+        // Get the current time in milliseconds
+        val currentTimeMillis = System.currentTimeMillis()
+
+        // Create a Calendar instance and set its time to the current time
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = currentTimeMillis
+
+        // Get the TimeZone for the default locale
+        val timeZone = TimeZone.getDefault()
+
+        // Set the TimeZone for the Calendar instance
+        calendar.timeZone = timeZone
+
+        // Get the day and month from the Calendar instance
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+
+        // Create a SimpleDateFormat instance for formatting the date
+        val dateFormat = SimpleDateFormat("dd MMM", Locale.getDefault())
+
+        // Format the date into a string (e.g., "06 Mar")
+        val formattedDate = dateFormat.format(calendar.time)
+
+        return formattedDate
+}
 }
