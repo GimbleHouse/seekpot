@@ -2,7 +2,6 @@ package com.gimble.seekpot.feature.enquiry.presentation
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.ACTION_CALL
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -16,8 +15,7 @@ import com.gimble.seekpot.feature.enquiry.domain.model.FoundItemData
 import com.gimble.seekpot.ui.QueryData
 import com.squareup.picasso.Picasso
 
-
-class EnquiryAdapter(private val itemlist : List<FoundItemData>,private val context: Context) : RecyclerView.Adapter<EnquiryAdapter.MyViewHolder>() {
+class AdminEnquiryAdaptor (private val itemlist : List<FoundItemData>, private val context: Context) : RecyclerView.Adapter<AdminEnquiryAdaptor.MyViewHolder>() {
 
 
 
@@ -37,7 +35,7 @@ class EnquiryAdapter(private val itemlist : List<FoundItemData>,private val cont
         holder.desc.text=currentitem.itemtype
         Picasso.get().load(currentitem.itempicture).into(holder.image)
         holder.time.text = currentitem.time
-        holder.callbtn.setOnClickListener{makePhoneCall(context,"7483002017")}
+        holder.callbtn.setOnClickListener{makePhoneCall(context,currentitem.phonenumber!!)}
         holder.body.setOnClickListener {
             jumpToData(currentitem.id!!,holder,)
         }
@@ -45,7 +43,7 @@ class EnquiryAdapter(private val itemlist : List<FoundItemData>,private val cont
 
     //extra methods
     fun makePhoneCall(context: Context, number: String) {
-        val intent = Intent(ACTION_CALL, Uri.parse("tel:" + number))
+        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number))
         context.startActivity(intent)
     }
     fun jumpToData(id: String, holder: MyViewHolder){

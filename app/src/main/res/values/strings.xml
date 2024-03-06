@@ -10,4 +10,8 @@
     <string name="pokemon">pokemon</string>
     <string name="home">home</string>
     <string name="stuff">stuff</string>
+    <string name="admin">Admin</string>
+    <string name="welcome">Welcome !!</string>
+    <string name="lost">LOST</string>
+    <string name="found">FOUND</string>
 </resources>

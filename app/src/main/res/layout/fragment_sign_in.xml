@@ -47,20 +47,43 @@
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/admin"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:alpha="0"
+        app:startIconDrawable="@drawable/locke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:alpha="0"
+            android:id="@+id/adminEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Admin Code"
+            android:fontFamily="@font/comfortaa_light"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signinButton"
         android:layout_width="320dp"
         android:layout_height="64dp"
         android:layout_marginTop="60dp"
-        android:text="@string/sign_in"
         android:fontFamily="@font/comfortaabold"
+        android:text="@string/sign_in"
         android:textSize="12sp"
         android:textStyle="normal"
         app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"/>
+        app:layout_constraintTop_toBottomOf="@+id/password" />
     <TextView android:id="@+id/signuptext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,5 +119,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/adminbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/comfortaamedium"
+        android:text="Admin ?"
+        android:textColor="#0000FF"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

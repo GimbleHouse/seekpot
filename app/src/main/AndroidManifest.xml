@@ -20,6 +20,15 @@
         android:theme="@style/Theme.Seekpot"
         tools:targetApi="31">
         <activity
+            android:name=".ui.AdminQueryData"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AdminHome"
+            android:exported="false" />
+        <activity
+            android:name=".ui.QueryData"
+            android:exported="false" />
+        <activity
             android:name=".ui.ItemLost"
             android:exported="false" />
         <activity
@@ -40,6 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

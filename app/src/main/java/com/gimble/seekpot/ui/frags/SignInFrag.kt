@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.gimble.seekpot.R
 import com.gimble.seekpot.databinding.FragmentSignInBinding
 import com.gimble.seekpot.feature.authentication.AuthenticationManager
+import com.gimble.seekpot.ui.AdminHome
 import com.gimble.seekpot.ui.MainActivity
 
 
@@ -33,19 +34,42 @@ private lateinit var binding : FragmentSignInBinding
             transaction.commit()
         }
         binding.signinButton.setOnClickListener {
-            val am = AuthenticationManager()
-            am.signInAccount(requireContext(), MainActivity.auth, binding.itemname.text.toString(),binding.passwordEditText.text.toString()
-            ) { isSuccess ->
-                if (isSuccess) {
-                    // Sign-in successful, navigate to the home page
-                    navigateToHomePage()
-                } else {
-                    // Sign-in failed, handle accordingly
-                    Toast.makeText(context,"something went wrong", Toast.LENGTH_SHORT).show()
-                }
-            }
+           if( binding.adminEt.text.toString().isNotBlank() && binding.adminEt.text.toString().equals("AX6etQa132")){
+               val am = AuthenticationManager()
+               am.signInAccount(requireContext(), MainActivity.auth, binding.itemname.text.toString(),binding.passwordEditText.text.toString()
+               ) { isSuccess ->
+                   if (isSuccess) {
+                       // Sign-in successful, navigate to the home page
+                       navigateToAdminHomePage()
+                   } else {
+                       // Sign-in failed, handle accordingly
+                       Toast.makeText(context,"something went wrong", Toast.LENGTH_SHORT).show()
+                   }
+               }
+           }
+           else{ val am = AuthenticationManager()
+               am.signInAccount(requireContext(), MainActivity.auth, binding.itemname.text.toString(),binding.passwordEditText.text.toString()
+               ) { isSuccess ->
+                   if (isSuccess) {
+                       // Sign-in successful, navigate to the home page
+                       navigateToHomePage()
+                   } else {
+                       // Sign-in failed, handle accordingly
+                       Toast.makeText(context,"something went wrong", Toast.LENGTH_SHORT).show()
+                   }
+               }}
+        }
+        binding.adminbtn.setOnClickListener {
+            binding.admin.alpha = 1.0f
+            binding.adminEt.alpha =1.0f
         }
 
+    }
+
+    private fun navigateToAdminHomePage() {
+        val i = Intent(activity,AdminHome::class.java)
+        startActivity(i)
+        activity?.finish()
     }
 
     private fun navigateToHomePage() {

@@ -1,5 +1,6 @@
 package com.gimble.seekpot.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,11 @@ class Account : AppCompatActivity() {
 
     private fun setup() {
         binding.button.setOnClickListener{
+            //disabling admin
+            val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
+            editor.putBoolean("admin", false)
+            editor.apply()
             val am = AuthenticationManager()
             am.signOut(this, MainActivity.auth) {
                 Toast.makeText(this,"signout successful",Toast.LENGTH_SHORT).show()

@@ -3,14 +3,11 @@
 
     <item
         android:id="@+id/homeNav"
-        android:title="  "
-        android:icon="@drawable/home"/>
+        android:title="@string/lost"
+        />
     <item
         android:id="@+id/pokeNav"
-        android:title="   "
-        android:icon="@drawable/luggage"/>
-    <item
-        android:id="@+id/accNav"
-        android:title="   "
-        android:icon="@drawable/user"/>
+        android:title="@string/found"
+     />
+
 </menu>

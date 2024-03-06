@@ -1,5 +1,6 @@
 package com.gimble.seekpot.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gimble.seekpot.databinding.ActivityMainBinding
 import com.gimble.seekpot.feature.enquiry.domain.model.FoundItemData
 import com.gimble.seekpot.feature.enquiry.presentation.EnquiryAdapter
-import com.gimble.seekpot.feature.enquiry.presentation.ProgShow
 import com.gimble.seekpot.feature.enquiry.presentation.ProgShowOne
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -39,32 +39,44 @@ class MainActivity : AppCompatActivity() {
             jumperToAuthentication()
         }
         else{
-            binding.username.text = extractNameFromEmail(auth.currentUser?.email.toString())
-            binding.imageView.setOnClickListener {
-                val i = Intent(this,Account::class.java)
-                startActivity(i)
+            val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            val isAdmin = sharedPref.getBoolean("admin", false)
+
+            if (isAdmin) {
+                // Start a different activity for admin
+                val intent = Intent(this, AdminHome::class.java)
+                startActivity(intent)
+                finish() // Optionally finish the current activity
             }
-            binding.foundbutton.setOnClickListener{
-                val q = Intent(this,ItemFound::class.java)
-                startActivity(q)
+            else {
+                binding.username.text = extractNameFromEmail(auth.currentUser?.email.toString())
+                binding.acc.setOnClickListener {
+                    val i = Intent(this,Account::class.java)
+                    startActivity(i)
+                }
+                binding.foundbutton.setOnClickListener{
+                    val q = Intent(this,ItemFound::class.java)
+                    startActivity(q)
+                }
+                binding.lostbutton.setOnClickListener {
+                    val r = Intent(this,ItemLost::class.java)
+                    startActivity(r)
+                }
+
+                fireref = FirebaseDatabase.getInstance().getReference("lostitems")
+                itemlist = arrayListOf()
+                firerefB = FirebaseDatabase.getInstance().getReference("founditems")
+                itemlistB = arrayListOf()
+                fetchData()
+
+                //fetchDataForFound(itemlist)
+                binding.recycler.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(this.context)
+                }
             }
-            binding.lostbutton.setOnClickListener {
-                val r = Intent(this,ItemLost::class.java)
-                startActivity(r)
             }
 
-            fireref = FirebaseDatabase.getInstance().getReference("lostitems")
-            itemlist = arrayListOf()
-            firerefB = FirebaseDatabase.getInstance().getReference("founditems")
-            itemlistB = arrayListOf()
-            fetchData()
-
-            //fetchDataForFound(itemlist)
-            binding.recycler.apply {
-                setHasFixedSize(true)
-              layoutManager = LinearLayoutManager(this.context)
-            }
-        }
         //fetchDataFromDatabase()
     }
     private fun jumperToAuthentication(){
@@ -105,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        Toast.makeText(this@MainActivity, "Something went wrong", Toast.LENGTH_SHORT).show()
+                        fetchDataForFound(itemlist)
                         sendingDialog.dismiss()
                     }
                 })
